@@ -1,0 +1,624 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+    
+    /* Custom Colors - Dark Theme */
+    --color-bg-primary: #0a0e1a;
+    --color-bg-secondary: #0f1420;
+    --color-bg-tertiary: #151b2e;
+    --color-bg-card: #1a2234;
+    --color-bg-card-hover: #1f2943;
+    
+    --color-border: #2d3752;
+    --color-border-light: #3d4765;
+    
+    --color-text-primary: #f1f5f9;
+    --color-text-secondary: #94a3b8;
+    --color-text-muted: #64748b;
+    
+    /* Accent Colors */
+    --color-accent-blue: #3b82f6;
+    --color-accent-blue-hover: #2563eb;
+    --color-accent-cyan: #06b6d4;
+    --color-accent-purple: #8b5cf6;
+    --color-accent-green: #10b981;
+    --color-accent-orange: #f59e0b;
+    --color-accent-red: #ef4444;
+    
+    /* Spacing Scale */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Border Radius Scale */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    
+    /* Shadow Scale */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.7);
+    --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.3);
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 350ms ease;
+  }
+  
+  /* Base Styles */
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    @apply antialiased;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-slate-950 text-slate-100;
+    @apply min-h-screen;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /* Gradient Background with Radial Overlays */
+    background-image: 
+      radial-gradient(circle at 20% 10%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 60% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 10% 90%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+/* ============================================
+   COMPONENT CLASSES
+   ============================================ */
+@layer components {
+  
+  /* Card Components */
+  .glass-card {
+    @apply bg-[var(--color-bg-card)] border border-[var(--color-border)];
+    @apply rounded-[var(--radius-lg)] p-6;
+    @apply shadow-lg backdrop-blur-xl;
+    @apply transition-all duration-[var(--transition-base)];
+    background: linear-gradient(
+      135deg,
+      rgba(26, 34, 52, 0.9) 0%,
+      rgba(26, 34, 52, 0.7) 100%
+    );
+    backdrop-filter: blur(10px);
+  }
+  
+  .glass-card:hover {
+    @apply border-[var(--color-border-light)] shadow-xl;
+    transform: translateY(-2px);
+  }
+  
+  .card-header {
+    @apply flex items-center justify-between mb-6 pb-4;
+    @apply border-b border-[var(--color-border)];
+  }
+  
+  .card-title {
+    @apply text-2xl font-bold text-[var(--color-text-primary)];
+    @apply flex items-center gap-3;
+  }
+  
+  .card-subtitle {
+    @apply text-sm text-[var(--color-text-muted)] mt-1;
+  }
+  
+  /* Button Components */
+  .btn {
+    @apply px-4 py-2 rounded-[var(--radius-md)];
+    @apply font-medium text-sm;
+    @apply transition-all duration-[var(--transition-fast)];
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-primary {
+    @apply btn bg-[var(--color-accent-blue)] text-white;
+    @apply hover:bg-[var(--color-accent-blue-hover)];
+    @apply focus:ring-[var(--color-accent-blue)];
+    @apply shadow-md hover:shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)];
+    @apply border border-[var(--color-border)];
+    @apply hover:bg-[var(--color-bg-card-hover)] hover:border-[var(--color-border-light)];
+  }
+  
+  .btn-icon {
+    @apply p-2 rounded-[var(--radius-md)];
+    @apply text-[var(--color-text-secondary)];
+    @apply hover:text-[var(--color-text-primary)];
+    @apply hover:bg-[var(--color-bg-tertiary)];
+    @apply transition-all duration-[var(--transition-fast)];
+  }
+  
+  /* Form Components */
+  .input {
+    @apply w-full px-4 py-2.5 rounded-[var(--radius-md)];
+    @apply bg-[var(--color-bg-tertiary)] border border-[var(--color-border)];
+    @apply text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)];
+    @apply focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-blue)] focus:border-transparent;
+    @apply transition-all duration-[var(--transition-fast)];
+  }
+  
+  .input:hover {
+    @apply border-[var(--color-border-light)];
+  }
+  
+  .select {
+    @apply input cursor-pointer appearance-none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+  
+  .label {
+    @apply block text-sm font-medium text-[var(--color-text-secondary)] mb-2;
+  }
+  
+  /* Badge Components */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  
+  .badge-blue {
+    @apply badge bg-blue-500/10 text-blue-400 border border-blue-500/20;
+  }
+  
+  .badge-green {
+    @apply badge bg-green-500/10 text-green-400 border border-green-500/20;
+  }
+  
+  .badge-orange {
+    @apply badge bg-orange-500/10 text-orange-400 border border-orange-500/20;
+  }
+  
+  .badge-red {
+    @apply badge bg-red-500/10 text-red-400 border border-red-500/20;
+  }
+  
+  .badge-purple {
+    @apply badge bg-purple-500/10 text-purple-400 border border-purple-500/20;
+  }
+  
+  /* Loading Components */
+  .skeleton {
+    @apply animate-pulse bg-[var(--color-bg-tertiary)] rounded-[var(--radius-md)];
+  }
+  
+  .spinner {
+    @apply animate-spin rounded-full;
+    @apply border-2 border-[var(--color-border)];
+    @apply border-t-[var(--color-accent-blue)];
+  }
+  
+  /* Utility Components */
+  .divider {
+    @apply border-t border-[var(--color-border)] my-6;
+  }
+  
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-[var(--color-bg-tertiary)] rounded-[var(--radius-sm)];
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-[var(--color-border)] rounded-[var(--radius-sm)];
+    @apply hover:bg-[var(--color-border-light)];
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+@layer utilities {
+  /* Gradient Text */
+  .text-gradient-blue {
+    @apply bg-gradient-to-r from-blue-400 to-cyan-400;
+    @apply bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-purple {
+    @apply bg-gradient-to-r from-purple-400 to-pink-400;
+    @apply bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-green {
+    @apply bg-gradient-to-r from-green-400 to-emerald-400;
+    @apply bg-clip-text text-transparent;
+  }
+  
+  /* Glow Effects */
+  .glow-blue {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+  
+  .glow-green {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  }
+  
+  /* Animations */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+}
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+  .glass-card {
+    @apply p-4;
+  }
+  
+  .card-title {
+    @apply text-xl;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.focus-visible:focus {
+  @apply outline-none ring-2 ring-[var(--color-accent-blue)] ring-offset-2 ring-offset-[var(--color-bg-primary)];
+}
+
+/* ============================================
+   SCROLLBAR GLOBAL STYLING
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-light);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-bg-tertiary);
+}
+
+/* ============================================
+   MODERN DESIGN SYSTEM - NEXUS DATA HUB
+   ============================================ */
+
+/* Gradient Text Effects */
+.gradient-text {
+  @apply bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400;
+  @apply bg-clip-text text-transparent;
+  @apply font-extrabold;
+}
+
+/* Stat Badges */
+.stat-badge {
+  @apply inline-flex items-center gap-2 px-4 py-2;
+  @apply bg-gradient-to-r from-slate-800/80 to-slate-700/80;
+  @apply border border-slate-600/30;
+  @apply rounded-full backdrop-blur-xl;
+  @apply text-sm font-medium text-slate-300;
+  @apply transition-all duration-300;
+  @apply hover:scale-105 hover:border-slate-500/50 hover:shadow-lg hover:shadow-blue-500/20;
+}
+
+/* Fade In Animation */
+.fade-in {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0.1s; }
+.stagger-item:nth-child(2) { animation-delay: 0.2s; }
+.stagger-item:nth-child(3) { animation-delay: 0.3s; }
+.stagger-item:nth-child(4) { animation-delay: 0.4s; }
+.stagger-item:nth-child(5) { animation-delay: 0.5s; }
+.stagger-item:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating Animation for Background Elements */
+.floating {
+  animation: floating 6s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.1); }
+  66% { transform: translate(-30px, 30px) scale(0.9); }
+}
+
+/* Modern Glass Card */
+.modern-glass-card {
+  @apply bg-gradient-to-br from-slate-800/40 to-slate-900/40;
+  @apply backdrop-blur-xl border border-slate-700/50;
+  @apply rounded-2xl shadow-2xl shadow-black/20;
+  @apply transition-all duration-300;
+  @apply hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/20;
+  @apply hover:border-slate-600/50;
+}
+
+/* API Section Card */
+.api-section {
+  @apply modern-glass-card p-8;
+}
+
+/* Input Modern */
+.input-modern {
+  @apply w-full px-5 py-3.5 rounded-xl;
+  @apply bg-slate-800/60 border border-slate-700/50;
+  @apply text-slate-100 placeholder:text-slate-500;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent;
+  @apply transition-all duration-200;
+  @apply hover:bg-slate-800/80 hover:border-slate-600/50;
+}
+
+/* Button Primary Modern */
+.btn-modern-primary {
+  @apply px-6 py-3.5 rounded-xl font-semibold;
+  @apply bg-gradient-to-r from-blue-600 to-cyan-600;
+  @apply text-white shadow-lg shadow-blue-600/30;
+  @apply transition-all duration-200;
+  @apply hover:scale-105 hover:shadow-xl hover:shadow-blue-600/40;
+  @apply active:scale-95;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100;
+}
+
+/* Tab Button Modern */
+.tab-btn {
+  @apply px-6 py-3 rounded-xl font-medium whitespace-nowrap;
+  @apply transition-all duration-300;
+  @apply bg-slate-800/50 text-slate-400;
+  @apply hover:bg-slate-700/50 hover:text-slate-200;
+  @apply border border-transparent;
+}
+
+.tab-btn-active {
+  @apply tab-btn;
+  @apply bg-gradient-to-r from-blue-600 to-cyan-600;
+  @apply text-white shadow-lg shadow-blue-600/30;
+  @apply border-blue-500/50;
+}
+
+/* Loading Spinner Modern */
+.spinner-modern {
+  @apply animate-spin rounded-full;
+  @apply border-4 border-slate-700;
+  @apply border-t-blue-500;
+  @apply w-12 h-12;
+}
+
+/* Badge Modern */
+.badge-modern {
+  @apply inline-flex items-center gap-1.5 px-3 py-1;
+  @apply rounded-full text-xs font-semibold;
+  @apply transition-all duration-200;
+}
+
+.badge-blue {
+  @apply badge-modern bg-blue-500/10 text-blue-400;
+  @apply border border-blue-500/30;
+  @apply hover:bg-blue-500/20 hover:border-blue-500/50;
+}
+
+.badge-green {
+  @apply badge-modern bg-green-500/10 text-green-400;
+  @apply border border-green-500/30;
+  @apply hover:bg-green-500/20 hover:border-green-500/50;
+}
+
+.badge-purple {
+  @apply badge-modern bg-purple-500/10 text-purple-400;
+  @apply border border-purple-500/30;
+  @apply hover:bg-purple-500/20 hover:border-purple-500/50;
+}
+
+.badge-orange {
+  @apply badge-modern bg-orange-500/10 text-orange-400;
+  @apply border border-orange-500/30;
+  @apply hover:bg-orange-500/20 hover:border-orange-500/50;
+}
+
+.badge-red {
+  @apply badge-modern bg-red-500/10 text-red-400;
+  @apply border border-red-500/30;
+  @apply hover:bg-red-500/20 hover:border-red-500/50;
+}
+
+/* News Card Modern */
+.news-card {
+  @apply block rounded-xl overflow-hidden;
+  @apply bg-gradient-to-br from-slate-800/60 to-slate-900/60;
+  @apply border border-slate-700/50 backdrop-blur-sm;
+  @apply transition-all duration-300;
+  @apply hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10;
+  @apply hover:border-slate-600/50;
+}
+
+/* Weather Stat Card */
+.weather-stat {
+  @apply p-5 rounded-xl;
+  @apply bg-gradient-to-br from-blue-500/10 to-cyan-500/10;
+  @apply border border-blue-500/20;
+  @apply transition-all duration-200;
+  @apply hover:border-blue-500/40 hover:bg-blue-500/15;
+}
+
+/* Book Card */
+.book-card {
+  @apply p-5 rounded-xl;
+  @apply bg-gradient-to-br from-slate-800/80 to-slate-900/80;
+  @apply border border-slate-700/50;
+  @apply transition-all duration-300;
+  @apply hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/10;
+  @apply hover:border-slate-600/50;
+}
+
+/* Section Header */
+.section-header {
+  @apply flex items-center gap-4 mb-8;
+}
+
+.section-icon {
+  @apply w-14 h-14 rounded-xl flex items-center justify-center text-2xl;
+  @apply shadow-xl;
+}
+
+.section-title {
+  @apply text-3xl font-bold text-white;
+}
+
+.section-subtitle {
+  @apply text-slate-400 text-sm mt-1;
+}
+
+/* Pulse Glow Effect */
+.pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.5;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+  }
+}
